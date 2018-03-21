@@ -41,7 +41,8 @@ def push_key(devInfo="Info.txt"):
 
         for device in devices:
             command = "sshpass -p '" + PW + "' ssh-copy-id " + DEV_USER + "@" + device
-            print(command)
+            subprocess.call(command, shell=True)
+            time.sleep(3)
             subprocess.call(command, shell=True)
 
 def key_present():
