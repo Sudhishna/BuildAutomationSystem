@@ -84,9 +84,9 @@ def countdown(t):
         time.sleep(1)
         t -= 1
 
-#print("\n\n      ########  Clone the GIT Project Repository  ########")
-#git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
-#print("Contrail Ansible Project cloned")
+print("\n\n      ########  Clone the GIT Project Repository  ########")
+git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
+print("Contrail Ansible Project cloned")
 
 print("\n\n      ########  Generate SSH Key  ########")
 gen_key()
