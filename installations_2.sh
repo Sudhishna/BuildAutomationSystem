@@ -8,3 +8,5 @@ sudo apt-get install ansible -y
 
 # Install Ansible modules
 ansible-galaxy install Juniper.junos,1.4.3
+
+rm -rf ~/Contrail_Automation
