@@ -87,17 +87,17 @@ print("\n\n      ########  Clone the GIT Project Repository  ########")
 git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
 print("Contrail Ansible Project cloned")
 
+print("\n\n      ########  Generate SSH Key  ########")
+gen_key()
+
 print("\n\n      ########  Accept the key from remote vm  ########")
 accept_ssh_keys()
 subprocess.call(['./installations_3.sh'])
-
-print("\n\n      ########  Generate SSH Key  ########")
-gen_key()
 
 print("\n\n      ########  Push key to the remote vm  ########")
 push_key()
 
 print("\n\n      ########  Wait for the VMs to stablize  ########")
-countdown(80)
+countdown(20)
 
 print("\n\n      #####  AUTOMATION SYSTEM IS READY  #####")
