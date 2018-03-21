@@ -42,8 +42,6 @@ def push_key(devInfo="Info.txt"):
         for device in devices:
             command = "sshpass -p '" + PW + "' ssh-copy-id " + DEV_USER + "@" + device
             subprocess.call(command, shell=True)
-            time.sleep(3)
-            subprocess.call(command, shell=True)
 
 def key_present():
     """Checks to see if there is an RSA already present. Returns a bool."""
@@ -70,12 +68,12 @@ def accept_ssh_keys(devInfo="Info.txt"):
         for device in devices:
             accept_keys += "ssh-keygen -R {}\nssh-keyscan -H {} >> ~/.ssh/known_hosts\n\n".format(device,device)
         print("{}".format(accept_keys))
-        with open("/root/BuildAutomationMachine/installations_3.sh", "w") as fil:
+        with open("/root/BuildAutomationSystem/installations_3.sh", "w") as fil:
             fil.write(accept_keys)
             fil.close()
         time.sleep(3)
         
-        make_executable("/root/BuildAutomationMachine/installations_3.sh")
+        make_executable("/root/BuildAutomationSystem/installations_3.sh")
 
 def countdown(t):
     while t:
@@ -89,17 +87,17 @@ print("\n\n      ########  Clone the GIT Project Repository  ########")
 git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
 print("Contrail Ansible Project cloned")
 
-print("\n\n      ########  Generate SSH Key  ########")
-gen_key()
-
-print("\n\n      ########  Push User Login Configs to the devices  ########")
-push_key()
-
-print("\n\n      ########  Accept the key from networking devices  ########")
+print("\n\n      ########  Accept the key from remote vm  ########")
 accept_ssh_keys()
 subprocess.call(['./installations_3.sh'])
 
-print("\n\n      ########  Wait for the VM and the devices to stablize  ########")
+print("\n\n      ########  Generate SSH Key  ########")
+gen_key()
+
+print("\n\n      ########  Push key to the remote vm  ########")
+push_key()
+
+print("\n\n      ########  Wait for the VMs to stablize  ########")
 countdown(80)
 
-print("\n\n      #####  AUTOMATION SYSTEM IS READY   #####")
+print("\n\n      #####  AUTOMATION SYSTEM IS READY  #####")
