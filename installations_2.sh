@@ -11,4 +11,4 @@ ansible-galaxy install Juniper.junos,1.4.3
 
 rm -rf ~/Contrail_Automation
 
-sudo -H pip install jmespath
+sudo apt-get install python-jmespath
