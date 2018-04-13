@@ -20,7 +20,7 @@ else:
     fileserverip = sys.stdin.readline().rstrip()
     miface = sys.stdin.readline().rstrip()
     
-FILE_SERVER = fileserverip
+MIFACE = miface
 DEV_USER = jnprusername
 PW = jnprpassword
 VM_USER = getpass.getuser()
@@ -36,10 +36,16 @@ def line_prepender(filename, line):
             outf.write(s)
     command = 'sudo mv tempfile.tmp ' + filename
     os.system('echo %s|sudo -S %s' % (PW, command))
-
+    
+def populate_ips(devInfo="Info.txt"):
+    with open(devInfo, 'a') as f:
+        f.write(hostip)
+        f.write(fileserver)
+        
 print("\n\n      ########  Making initial Installations  ########")
 subprocess.call(['./installations_1.sh'])
 
+populate_ips()
 line_prepender("/etc/apt/sources.list", "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main")
 
 print("\n\n      ########  Installing Ansible and its modules  ########")
@@ -48,5 +54,5 @@ subprocess.call(['./installations_2.sh'])
 if not os.path.exists(SSH_KEYGEN_DIR):
     os.makedirs(SSH_KEYGEN_DIR)
 
-subprocess.call(['python3','setup-config.py',DEV_USER,PW])
+subprocess.call(['python3','setup-config.py',DEV_USER,PW,MIFACE])
 
