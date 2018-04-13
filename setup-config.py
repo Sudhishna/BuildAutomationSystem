@@ -142,3 +142,5 @@ print("\n\n      ########  Wait for the VMs to stablize  ########")
 countdown(20)
 
 print("\n\n      #####  AUTOMATION SYSTEM IS READY  #####")
+
+print("\n\n NEXT STEP: Enter Contrail_Automation folder, and run ./Contrail_Install.sh ")
