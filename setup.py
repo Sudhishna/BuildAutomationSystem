@@ -5,13 +5,16 @@ import os
 import time
 
 if sys.stdin.isatty():
-    print("Enter credentials")
-    jnprusername = input("VM Username: ")
-    jnprpassword = getpass.getpass("VM Password: ")
+    print("Enter details")
+    jnprusername = input("Contrail Host Username: ")
+    jnprpassword = getpass.getpass("Contrail Host Password: ")
+    fileserverip = input("File Server IP Address: ")
 else:
     jnprusername = sys.stdin.readline().rstrip()
     jnprpassword = sys.stdin.readline().rstrip()
-
+    fileserverip = sys.stdin.readline().rstrip()
+    
+FILE_SERVER = fileserverip
 DEV_USER = jnprusername
 PW = jnprpassword
 VM_USER = getpass.getuser()
