@@ -88,8 +88,8 @@ def countdown(t):
 def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
     with open(devInfo, 'r') as f:
         target = f.readline()
-        command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'"
-        ip = subprocess.call(command, shell=True)
+        command = " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'"
+        ip = subprocess.call("ssh",DEV_USER + "@" + target, command, shell=True)
         print ("ip")
         
         command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'HWaddr' | awk -F' ' '{print $5}'"
