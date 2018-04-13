@@ -6,13 +6,19 @@ import time
 
 if sys.stdin.isatty():
     print("Enter details")
-    jnprusername = input("Contrail Host Username: ")
-    jnprpassword = getpass.getpass("Contrail Host Password: ")
-    fileserverip = input("File Server IP Address: ")
+    print("Contrail Host:")
+    jnprusername = input("Username: ")
+    jnprpassword = getpass.getpass("Password: ")
+    hostip = input("IP Address: ")
+    miface = input("Management Interface: ")
+    print("File Server:")
+    fileserver = input("IP Address: ")
 else:
     jnprusername = sys.stdin.readline().rstrip()
     jnprpassword = sys.stdin.readline().rstrip()
+    hostip = sys.stdin.readline().rstrip()
     fileserverip = sys.stdin.readline().rstrip()
+    miface = sys.stdin.readline().rstrip()
     
 FILE_SERVER = fileserverip
 DEV_USER = jnprusername
