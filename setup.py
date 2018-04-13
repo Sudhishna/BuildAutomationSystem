@@ -39,8 +39,8 @@ def line_prepender(filename, line):
     os.system('echo %s|sudo -S %s' % (PW, command))
     
 def populate_ips(devInfo="Info.txt"):
-    with open(devInfo, 'a') as f:
-        f.write(hostip)
+    with open(devInfo, 'w') as f:
+        f.write(hostip +'\n')
         f.write(fileserver)
         
 print("\n\n      ########  Making initial Installations  ########")
