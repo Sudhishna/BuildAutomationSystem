@@ -111,7 +111,7 @@ def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
         gw = subprocess.call(command, shell=True)
         print ("gw")
         
-        with open(nwInfo, "w") as fw:
+        with open(nwInfo, "a") as fw:
             fw.write('hostname ' + hostname)
             fw.write('iface ' + mgmt_iface)
             fw.write('ip ' + ip + '/' + cidr)
