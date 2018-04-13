@@ -4,23 +4,27 @@ import getpass
 import os
 import time
 
+with open("Info.txt") as f:
+    hostip,fileserverip,miface = f.readlines()
+    f.close()
+
+print("***********************************")
+print("      BUILD AUTOMATION SYSTEM"
+print("***********************************")
+print("Populating content from Info.txt...")
+print("")
+print("FILE SERVER")
+print("IP Address: " + fileserverip)
+print("CONTRAIL HOST")
+print(" IP Address: " + hostip)
+print(" Management Interface Name: " + miface)
+print("***********************************")
+jnprusername = "root"
 if sys.stdin.isatty():
-    print("Enter details")
-    print("***********************************")
-    print("CONTRAIL HOST:")
-    jnprusername = input("Username: ")
-    jnprpassword = getpass.getpass("Password: ")
-    hostip = input("IP Address: ")
-    miface = input("Management Interface: ")
-    print("FILE SERVER:")
-    fileserver = input("IP Address: ")
+    jnprpassword = getpass.getpass("Enter Contrail Host Root Password: ")     
 else:
-    jnprusername = sys.stdin.readline().rstrip()
     jnprpassword = sys.stdin.readline().rstrip()
-    hostip = sys.stdin.readline().rstrip()
-    fileserverip = sys.stdin.readline().rstrip()
-    miface = sys.stdin.readline().rstrip()
-    
+        
 MIFACE = miface
 DEV_USER = jnprusername
 PW = jnprpassword
