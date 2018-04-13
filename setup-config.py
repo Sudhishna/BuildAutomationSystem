@@ -88,26 +88,26 @@ def countdown(t):
 def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
     with open(devInfo, 'r') as f:
         target = f.readline()
-        command = " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'"
+        command = "ssh " + DEV_USER + "@" + target + " \"/sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'\""
         ip = subprocess.call("ssh",DEV_USER + "@" + target, command, shell=True)
         print ("ip")
         
-        command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'HWaddr' | awk -F' ' '{print $5}'"
+        command = "ssh " +  DEV_USER + "@" + target + " \"/sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'HWaddr' | awk -F' ' '{print $5}'\""
         mac = subprocess.call(command, shell=True)
         print ("mac")
         
-        command = "ssh " +  DEV_USER + "@" + target + "apt-get install sipcalc"
+        command = "ssh " +  DEV_USER + "@" + target + "\"apt-get install sipcalc\""
         subprocess.call(command, shell=True)
         
         command = "ssh " +  DEV_USER + "@" + target + "hostname"
         hostname = subprocess.call(command, shell=True)
         print ("hostname")
         
-        command = "ssh " +  DEV_USER + "@" + target + "sipcalc " + MGMT_IFACE + "|grep 'Network mask (bits)'| awk 'NR==1'|awk -F' ' '{print $5}'"
+        command = "ssh " +  DEV_USER + "@" + target + "\"sipcalc " + MGMT_IFACE + "|grep 'Network mask (bits)'| awk 'NR==1'|awk -F' ' '{print $5}'\""
         cidr = subprocess.call(command, shell=True)
         print ("cidr")
         
-        command = "ssh " +  DEV_USER + "@" + target + "ip route list dev " + MGMT_IFACE + " | awk ' /^default/ {print $3}'"
+        command = "ssh " +  DEV_USER + "@" + target + "\"ip route list dev " + MGMT_IFACE + " | awk ' /^default/ {print $3}'\""
         gw = subprocess.call(command, shell=True)
         print ("gw")
         
