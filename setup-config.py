@@ -9,9 +9,11 @@ import time
 
 jnprusername = str(sys.argv[1])
 jnprpassword = str(sys.argv[2])
+mgmt_iface = str(sys.argv[3])
 
 DEV_USER = jnprusername
 PW = jnprpassword
+MGMT_IFACE = mgmt_iface
 VM_USER = getpass.getuser()
 SSH_KEYGEN_DIR = "~/.ssh"
 HOME_DIR = "/root/"
@@ -82,6 +84,31 @@ def countdown(t):
         print(timeformat, end='\r')
         time.sleep(1)
         t -= 1
+        
+def get_network_details(nwInfo="network_info.txt",devInfo="Info.txt"):
+    with open(devInfo, 'r') as f:
+        target = f.readline()
+        command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'"
+        ip = subprocess.call(command, shell=True)
+        print ip
+        
+        command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'HWaddr' | awk -F' ' '{print $5}'"
+        mac = subprocess.call(command, shell=True)
+        print mac
+        
+        command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'Mask' | awk -F' ' '{print $4}'|awk -F ':' '{print $2}'"
+        mask = subprocess.call(command, shell=True)
+        print mask
+        
+        command = "ssh " +  DEV_USER + "@" + target + "apt-get install sipcalc"
+        subprocess.call(command, shell=True)
+        
+        command = "ssh " +  DEV_USER + "@" + target + "sipcalc " + MGMT_IFACE + "|grep 'Network mask (bits)'| awk 'NR==1'|awk -F' ' '{print $5}'"
+        cidr = subprocess.call(command, shell=True)
+        
+        command = "ssh " +  DEV_USER + "@" + target + "ip route list dev " + MGMT_IFACE + " | awk ' /^default/ {print $3}'"
+        gw = subprocess.call(command, shell=True)
+        
 
 print("\n\n      ########  Clone the GIT Project Repository  ########")
 git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
