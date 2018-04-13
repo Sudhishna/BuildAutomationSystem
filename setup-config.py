@@ -99,6 +99,9 @@ def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
         command = "ssh " +  DEV_USER + "@" + target + "apt-get install sipcalc"
         subprocess.call(command, shell=True)
         
+        command = "ssh " +  DEV_USER + "@" + target + "hostname"
+        hostname = subprocess.call(command, shell=True)
+        
         command = "ssh " +  DEV_USER + "@" + target + "sipcalc " + MGMT_IFACE + "|grep 'Network mask (bits)'| awk 'NR==1'|awk -F' ' '{print $5}'"
         cidr = subprocess.call(command, shell=True)
         
@@ -106,6 +109,7 @@ def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
         gw = subprocess.call(command, shell=True)
         
         with open(nwInfo, "a+") as fw:
+            fw.write('hostname ' + hostname)
             fw.write('ip ' + ip + '/' + cidr)
             fw.write('mac ' + mac)
             fw.write('gateway ' + gw)
