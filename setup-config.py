@@ -139,7 +139,7 @@ print("\n\n      ########  Push key to the remote vm  ########")
 push_key()
 
 print("\n\n      ########  Get network details from the remote host ########")
-get_network_details()
+get_target_details()
 
 print("\n\n      ########  Wait for the VMs to stablize  ########")
 countdown(20)
