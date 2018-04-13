@@ -85,7 +85,7 @@ def countdown(t):
         time.sleep(1)
         t -= 1
         
-def get_network_details(nwInfo="network_info.txt",devInfo="Info.txt"):
+def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
     with open(devInfo, 'r') as f:
         target = f.readline()
         command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'"
@@ -109,6 +109,9 @@ def get_network_details(nwInfo="network_info.txt",devInfo="Info.txt"):
             fw.write('ip ' + ip + '/' + cidr)
             fw.write('mac ' + mac)
             fw.write('gateway ' + gw)
+            fw.write('ubuntu-version xenial')
+            fw.write('contrail-version 4.1.0.0-8')
+            fw.write('openstack-version ocata')
             fw.close()
         time.sleep(3)
 
