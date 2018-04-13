@@ -110,12 +110,14 @@ def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
         
         with open(nwInfo, "a+") as fw:
             fw.write('hostname ' + hostname)
+            fw.write('iface ' + mgmt_iface)
             fw.write('ip ' + ip + '/' + cidr)
             fw.write('mac ' + mac)
             fw.write('gateway ' + gw)
             fw.write('ubuntu-version xenial')
             fw.write('contrail-version 4.1.0.0-8')
             fw.write('openstack-version ocata')
+            fw.write('openstack-release 4.0.0')
             fw.close()
         time.sleep(3)
 
