@@ -30,7 +30,7 @@ DEV_USER = jnprusername
 PW = jnprpassword
 VM_USER = getpass.getuser()
 SSH_KEYGEN_DIR = "~/.ssh"
-
+      
 def line_prepender(filename, line):
     #with os.popen(filename, 'w').write(PW) as f:
     with open(filename, 'rt') as f:
