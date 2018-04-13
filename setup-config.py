@@ -96,10 +96,6 @@ def get_network_details(nwInfo="network_info.txt",devInfo="Info.txt"):
         mac = subprocess.call(command, shell=True)
         print mac
         
-        command = "ssh " +  DEV_USER + "@" + target + " /sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'Mask' | awk -F' ' '{print $4}'|awk -F ':' '{print $2}'"
-        mask = subprocess.call(command, shell=True)
-        print mask
-        
         command = "ssh " +  DEV_USER + "@" + target + "apt-get install sipcalc"
         subprocess.call(command, shell=True)
         
@@ -109,6 +105,12 @@ def get_network_details(nwInfo="network_info.txt",devInfo="Info.txt"):
         command = "ssh " +  DEV_USER + "@" + target + "ip route list dev " + MGMT_IFACE + " | awk ' /^default/ {print $3}'"
         gw = subprocess.call(command, shell=True)
         
+        with open(nwInfo, "a+") as fw:
+            fw.write('ip ' + ip + '/' + cidr)
+            fw.write('mac ' + mac)
+            fw.write('gateway ' + gw)
+            fw.close()
+        time.sleep(3)
 
 print("\n\n      ########  Clone the GIT Project Repository  ########")
 git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
@@ -123,6 +125,9 @@ subprocess.call(['./installations_3.sh'])
 
 print("\n\n      ########  Push key to the remote vm  ########")
 push_key()
+
+print("\n\n      ########  Get network details from the remote host ########")
+get_network_details()
 
 print("\n\n      ########  Wait for the VMs to stablize  ########")
 countdown(20)
