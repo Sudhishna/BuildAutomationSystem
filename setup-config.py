@@ -9,11 +9,9 @@ import time
 
 jnprusername = str(sys.argv[1])
 jnprpassword = str(sys.argv[2])
-mgmt_iface = str(sys.argv[3])
 
 DEV_USER = jnprusername
 PW = jnprpassword
-MGMT_IFACE = mgmt_iface
 VM_USER = getpass.getuser()
 SSH_KEYGEN_DIR = "~/.ssh"
 HOME_DIR = "/root/"
