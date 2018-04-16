@@ -5,8 +5,11 @@ import os
 import time
 
 with open("Info.txt") as f:
-    hostip,fileserverip,miface = f.readlines()
+    hostip,fileserverip = f.readlines()
     f.close()
+    
+yes = {'yes','y',''}
+no = {'no','n'}
 
 print("***********************************")
 print("      BUILD AUTOMATION SYSTEM"
@@ -17,15 +20,27 @@ print("FILE SERVER")
 print("IP Address: " + fileserverip)
 print("CONTRAIL HOST")
 print(" IP Address: " + hostip)
-print(" Management Interface Name: " + miface)
 print("***********************************")
+print("***********************************")
+print("Confirm above details (Y?N) ? ")
+while True:
+    choice = raw_input().lower()
+    if choice in no:
+        print ("Provide ip addresses in Info.txt")
+        print ("First line: Contrail host ip")
+        print ("Second line: File Server ip")
+        sys.exit()
+    elif choice in yes:
+        break
+    else:
+        print ("Enter a valid choice : y/n "
+                    
 jnprusername = "root"
 if sys.stdin.isatty():
     jnprpassword = getpass.getpass("Enter Contrail Host Root Password: ")     
 else:
     jnprpassword = sys.stdin.readline().rstrip()
         
-MIFACE = miface
 DEV_USER = jnprusername
 PW = jnprpassword
 VM_USER = getpass.getuser()
@@ -41,16 +56,10 @@ def line_prepender(filename, line):
             outf.write(s)
     command = 'sudo mv tempfile.tmp ' + filename
     os.system('echo %s|sudo -S %s' % (PW, command))
-    
-def populate_ips(devInfo="Info.txt"):
-    with open(devInfo, 'w') as f:
-        f.write(hostip +'\n')
-        f.write(fileserver)
         
 print("\n\n      ########  Making initial Installations  ########")
 subprocess.call(['./installations_1.sh'])
 
-populate_ips()
 line_prepender("/etc/apt/sources.list", "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main")
 
 print("\n\n      ########  Installing Ansible and its modules  ########")
@@ -59,5 +68,4 @@ subprocess.call(['./installations_2.sh'])
 if not os.path.exists(SSH_KEYGEN_DIR):
     os.makedirs(SSH_KEYGEN_DIR)
 
-subprocess.call(['python3','setup-config.py',DEV_USER,PW,MIFACE])
-
+subprocess.call(['python3','setup-config.py',DEV_USER,PW])
