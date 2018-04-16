@@ -5,7 +5,7 @@ import os
 import time
 
 with open("Info.txt") as f:
-    hostip,fileserverip,miface = f.readlines()
+    hostip,fileserverip = f.readlines()
     f.close()
     
 yes = {'yes','y',''}
@@ -20,7 +20,6 @@ print("FILE SERVER")
 print(" IP Address: " + fileserverip)
 print("CONTRAIL HOST")
 print(" IP Address: " + hostip)
-print(" Management Iface Name: " + miface)
 print("***********************************")
 print("***********************************")
 print("")
@@ -31,7 +30,6 @@ while True:
         print("Provide ip addresses in Info.txt")
         print("First line: Contrail host ip")
         print("Second line: File Server ip")
-        print("Third line: Contrail Host Management Interface Name")
         sys.exit()
     elif choice in yes:
         break
