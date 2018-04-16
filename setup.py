@@ -26,17 +26,17 @@ print("***********************************")
 print("")
 
 while True:
-    choice = raw_input("Confirm above details (Y?N) ? ").lower()
+    choice = input("Confirm above details (Y?N) ? ").lower()
     if choice in no:
-        print ("Provide ip addresses in Info.txt")
-        print ("First line: Contrail host ip")
-        print ("Second line: File Server ip")
-        print ("Third line: Contrail Host Management Interface Name")
+        print("Provide ip addresses in Info.txt")
+        print("First line: Contrail host ip")
+        print("Second line: File Server ip")
+        print("Third line: Contrail Host Management Interface Name")
         sys.exit()
     elif choice in yes:
         break
     else:
-        print ("Enter a valid choice : y/n ")
+        print("Enter a valid choice : y/n ")
                     
 jnprusername = "root"
 if sys.stdin.isatty():
