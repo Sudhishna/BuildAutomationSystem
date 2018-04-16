@@ -11,20 +11,20 @@ with open("Info.txt") as f:
 yes = {'yes','y',''}
 no = {'no','n'}
 
-print ("***********************************")
-print ("      BUILD AUTOMATION SYSTEM"
-print ("***********************************")
-print ("Populating content from Info.txt...")
-print ("")
-print ("FILE SERVER")
-print ("IP Address: " + fileserverip)
-print ("CONTRAIL HOST")
-print (" IP Address: " + hostip)
-print (" Management Iface Name: " + miface)
-print ("***********************************")
-print ("***********************************")
-print ("")
-print ("Confirm above details (Y?N) ? ")
+print("***********************************")
+print("      BUILD AUTOMATION SYSTEM")
+print("***********************************")
+print("Populating content from Info.txt...")
+print("")
+print("FILE SERVER")
+print("IP Address: " + fileserverip)
+print("CONTRAIL HOST")
+print(" IP Address: " + hostip)
+print(" Management Iface Name: " + miface)
+print("***********************************")
+print("***********************************")
+print("")
+print("Confirm above details (Y?N) ? ")
 while True:
     choice = raw_input().lower()
     if choice in no:
