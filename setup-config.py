@@ -84,47 +84,6 @@ def countdown(t):
         print(timeformat, end='\r')
         time.sleep(1)
         t -= 1
-        
-def get_target_details(nwInfo="target_info.txt",devInfo="Info.txt"):
-    with open(devInfo, 'r') as f:
-        target = f.readline()
-        ssh_target = DEV_USER + "@" + target
-        command = "/sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'inet' | awk -F' ' '{print $2}'| awk -F ':' '{print $2}'|awk 'NR==1'"
-        ssh = subprocess.Popen(["ssh", ssh_target, command], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        ip = ssh.stdout.readlines()
-        print ("ip")
-        
-        command = "ssh " +  DEV_USER + "@" + target + " \"/sbin/ifconfig " + MGMT_IFACE + " $1 | grep 'HWaddr' | awk -F' ' '{print $5}'"
-        mac = subprocess.call(command, shell=True)
-        print ("mac")
-        
-        command = "ssh " +  DEV_USER + "@" + target + "\"apt-get install sipcalc"
-        subprocess.call(command, shell=True)
-        
-        command = "ssh " +  DEV_USER + "@" + target + "hostname"
-        hostname = subprocess.call(command, shell=True)
-        print ("hostname")
-        
-        command = "ssh " +  DEV_USER + "@" + target + "\"sipcalc " + MGMT_IFACE + "|grep 'Network mask (bits)'| awk 'NR==1'|awk -F' ' '{print $5}'"
-        cidr = subprocess.call(command, shell=True)
-        print ("cidr")
-        
-        command = "ssh " +  DEV_USER + "@" + target + "\"ip route list dev " + MGMT_IFACE + " | awk ' /^default/ {print $3}'"
-        gw = subprocess.call(command, shell=True)
-        print ("gw")
-        
-        with open(nwInfo, "w") as fw:
-            fw.write('hostname ' + hostname +'\n')
-            fw.write('iface ' + mgmt_iface +'\n')
-            fw.write('ip ' + ip + '/' + cidr +'\n')
-            fw.write('mac ' + mac +'\n')
-            fw.write('gateway ' + gw +'\n')
-            fw.write('ubuntu-version xenial' +'\n')
-            fw.write('contrail-version 4.1.0.0-8' +'\n')
-            fw.write('openstack-version ocata' +'\n')
-            fw.write('openstack-release 4.0.0')
-            fw.close()
-        time.sleep(3)
 
 print("\n\n      ########  Clone the GIT Project Repository  ########")
 git.Git(HOME_DIR).clone("https://github.com/Sudhishna/Contrail_Automation.git")
@@ -139,9 +98,6 @@ subprocess.call(['./installations_3.sh'])
 
 print("\n\n      ########  Push key to the remote vm  ########")
 push_key()
-
-print("\n\n      ########  Get network details from the remote host ########")
-get_target_details()
 
 print("\n\n      ########  Wait for the VMs to stablize  ########")
 countdown(20)
