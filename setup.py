@@ -8,8 +8,8 @@ with open("Info.txt") as f:
     hostip,fileserverip = f.readlines()
     f.close()
     
-yes = {'yes','y',''}
-no = {'no','n'}
+yes = {'yes','y','','Y'}
+no = {'no','n','N'}
 
 print("***********************************")
 print("      BUILD AUTOMATION SYSTEM")
@@ -25,7 +25,7 @@ print("***********************************")
 print("")
 
 while True:
-    choice = input("Confirm above details (Y?N) ? ").lower()
+    choice = input("Confirm above details (Y?N) ? ")
     if choice in no:
         print("Provide ip addresses in Info.txt")
         print("First line: Contrail host ip")
