@@ -1,4 +1,10 @@
 # BuildAutomationSystem
+Requirements:
+1. Build Automation host (Ubuntu)
+2. Contrail host (Ubuntu or Centos based on requirement)
+
+Clone this repo into the build automation host and run the below steps. Make sure that the contrail host has root ssh access.
+
 Steps:
 1. cd BuildAutomationSystem
 2. Enter the contrail host ip and file server ip in the file Info.txt
