@@ -103,6 +103,6 @@ countdown(20)
 print("\n\n      #####  AUTOMATION SYSTEM IS READY  #####")
 
 print("\n\n NEXT STEP: Enter Contrail_Automation folder ")
-print(" \n\n For Contrail 4.1 on Ubuntu 16.04 -- Run ./Contrail_Install.sh ")
-print(" \n\n For Contrail 5.0 on Centos 7.4   -- Run ./Contrail5-Centos-Install.sh ")
+print(" \n\n For Contrail 4.1 on Ubuntu 16.04 -- Run './Contrail_Install.sh' ")
+print(" \n\n For Contrail 5.0 on Centos 7.4   -- Run 'bash Contrail5-Centos-Install.sh' ")
 print(" \n\n")
