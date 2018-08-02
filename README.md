@@ -2,7 +2,9 @@
 Requirements:
 1. Build Automation host (Ubuntu)
 2. Contrail host (Ubuntu or Centos based on requirement)
-3. File Server (Ubuntu VM webserver, with the contrail-ansible-deployer package inside /var/www/html)
+3. File Server (Ubuntu VM webserver, with the necessary packages inside /var/www/html)
+
+Packages needed for Contrail 5.0 --> contrail-ansible-deployer from the Juniper Software Download site
 
 Clone this repo into the build automation host and run the below steps. Make sure that the contrail host has root ssh access.
 
